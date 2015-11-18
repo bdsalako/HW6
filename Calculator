@@ -1,0 +1,121 @@
+import java.util.*;
+
+public class Calculator{
+	public static void main(String[] arg) throws Throwable{
+		double op1=0, op3=0;
+		char op2='*';
+		
+		boolean exit = false;
+		Scanner s = new Scanner(System.in);
+		String par1, par2, par3;
+		
+		
+	
+		
+		while(!exit){
+			par1 = s.next();
+			par2 = s.next();
+			par3 = s.next();
+			op2 = (par2.charAt(0));
+		
+			try{
+				op1 = Double.parseDouble(par1);	
+			}catch(IllegalArgumentException nae){
+				System.out.println("NotANumberException! Try again");
+			}
+			
+			try{
+				op3 = Double.parseDouble(par3);	
+			}catch(IllegalArgumentException nae){
+				System.out.println("NotANumberException! Try again");
+			}
+			
+			if(op2 == '-' || op2 == '+' || op2 == '/' || op2 =='*' || op2 == '%'){
+		
+				if((op1 - (int)op1) > 0 ||  (op3 - (int)op3) > 0)
+					calculate(op1, op3, op2);
+				else 
+					calculate((int)op1, (int)op3, op2);	
+			}
+			else {
+				System.out.println("IllegalOperationException! Try again");
+				
+			}
+		}
+	}
+	
+	
+		
+	
+
+	public static void calculate (double op1, double op3, char ch) throws Exception{
+		switch(ch){
+		case '+':
+			System.out.println(op1 + op3);
+			break;
+		case '-':
+			System.out.println(op1 - op3);
+			break;
+		case '*':
+			System.out.println(op1 * op3);
+			break;
+		case '/':
+				if(op3 == 0)
+					throw new ArithmeticException("ArithmeticException! / by 0");
+				else 
+					System.out.println(op1 / op3);
+				break;
+		default:
+			throw new IllegalOperationException("IllegalOperationException! Try again");
+		}
+		
+		System.out.println();
+	}
+	
+	//to print int result for int parameters
+	public static void calculate (int op1, int op3, char ch) throws Exception{
+		switch(ch){
+		case '+':
+			System.out.print(op1 + op3);
+			break;
+		case '-':
+			System.out.print(op1 - op3);
+			break;
+		case '*':
+			System.out.print(op1 * op3);
+			break;
+		case '/':
+				if(op3 == 0)
+					throw new ArithmeticException("ArithmeticException! / by 0");
+				else 
+						System.out.print(op1 / op3);
+				
+				break;
+		case '%':
+			System.out.println(op1 % op3);
+			break;
+		default:
+			throw new IllegalOperationException("IllegalOperationException! Try again");
+		}
+		
+		System.out.println();
+	}
+		
+
+	static boolean isDouble(String mystr) {
+        try {
+            Double.parseDouble(mystr);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+}
+
+
+public class IllegalOperationException extends Exception {
+	public IllegalOperationException(String str){
+		super(str);
+	}
+
+}
